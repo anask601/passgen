@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
   length = 0;
   includeLetters = false;
   includeNumbers = false;
   includeSymbols = false;
-  password = '';
+  includeDash = false;
+  password = "";
 
   onChangeLength(value: string) {
     const parsedValue = parseInt(value);
@@ -32,12 +33,17 @@ export class AppComponent {
     this.includeSymbols = !this.includeSymbols;
   }
 
-  onButtonClick() {
-    const numbers = '1234567890';
-    const letters = 'abcdefghijklmnopqrstuvwyz';
-    const symbols = '!@#$%^&*()';
+  onChangeAddDash() {
+    this.includeDash = !this.includeDash;
+  }
 
-    let validChars = '';
+  onButtonClick() {
+    const numbers = "1234567890";
+    const letters = "abcdefghijklmnopqrstuvwyz";
+    const symbols = "!@#$%^&*()";
+    const dash = "-";
+
+    let validChars = "";
     if (this.includeLetters) {
       validChars += letters;
     }
@@ -48,7 +54,11 @@ export class AppComponent {
       validChars += symbols;
     }
 
-    let generatedPassword = '';
+    if (this.includeDash) {
+      validChars += dash;
+    }
+
+    let generatedPassword = "";
     for (let i = 0; i < this.length; i++) {
       const index = Math.floor(Math.random() * validChars.length);
       generatedPassword += validChars[index];
