@@ -41,7 +41,7 @@ export class AppComponent {
     const numbers = "1234567890";
     const letters = "abcdefghijklmnopqrstuvwyz";
     const symbols = "!@#$%^&*()";
-    const dash = "-";
+    const dash = crypto.randomUUID();
 
     let validChars = "";
     if (this.includeLetters) {
