@@ -1,3 +1,8 @@
 .copy {
   margin: 0.5rem 0;
 }
+
+.container {
+  width: 100%;
+  margin-top: 10rem;
+}

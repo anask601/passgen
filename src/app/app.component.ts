@@ -76,8 +76,7 @@ export class AppComponent {
     }
   }
 
-  onCopy(userinput): void {
-    console.log(userinput);
+  onCopy(): void {
     // navigator["clipboard"]
     //   .writeText(content)
     //   .then()

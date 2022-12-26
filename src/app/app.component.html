@@ -56,16 +56,13 @@
       >
         Generate!
       </button>
-      <button
-        (click)="onCopy(userinput)"
-        class="button is-link is-fullwidth copy"
-      >
+      <button (click)="onCopy()" class="button is-link is-fullwidth copy">
         copy
       </button>
 
       <div class="box" *ngIf="password">
         <label>Your Password</label>
-        <input class="input" [value]="password" #userinput />
+        <input class="input" [value]="password" />
       </div>
     </div>
   </div>
