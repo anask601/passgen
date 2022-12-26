@@ -38,7 +38,7 @@
       <div class="field">
         <div class="control">
           <label class="checkbox">
-            <input (change)="onChangeAddDash()" type="checkbox" />
+            <input (change)="onChangeAddRandomUUID()" type="checkbox" />
             Use random uuid
           </label>
         </div>
@@ -46,17 +46,26 @@
 
       <button
         [disabled]="
-          !(length && (includeLetters || includeSymbols || includeNumbers))
+          !(
+            (length && (includeLetters || includeSymbols || includeNumbers)) ||
+            includeRandomUUID
+          )
         "
         (click)="onButtonClick()"
         class="button is-link is-fullwidth"
       >
         Generate!
       </button>
+      <button
+        (click)="onCopy(userinput)"
+        class="button is-link is-fullwidth copy"
+      >
+        copy
+      </button>
 
       <div class="box" *ngIf="password">
         <label>Your Password</label>
-        <input class="input" [value]="password" />
+        <input class="input" [value]="password" #userinput />
       </div>
     </div>
   </div>

@@ -10,9 +10,11 @@ export class AppComponent {
   includeLetters = false;
   includeNumbers = false;
   includeSymbols = false;
-  includeDash = false;
+  includeRandomUUID = false;
   password = "";
-
+  randomUUID: string;
+  currentValue: any;
+  constructor() {}
   onChangeLength(value: string) {
     const parsedValue = parseInt(value);
 
@@ -33,15 +35,19 @@ export class AppComponent {
     this.includeSymbols = !this.includeSymbols;
   }
 
-  onChangeAddDash() {
-    this.includeDash = !this.includeDash;
+  onChangeAddRandomUUID() {
+    this.password = "";
+    this.includeRandomUUID = !this.includeRandomUUID;
+    // this.includeSymbols = !this.includeSymbols;
+    // this.includeNumbers = !this.includeNumbers;
+    // this.includeLetters = !this.includeLetters;
   }
 
   onButtonClick() {
     const numbers = "1234567890";
     const letters = "abcdefghijklmnopqrstuvwyz";
     const symbols = "!@#$%^&*()";
-    const dash = crypto.randomUUID;
+    const randomUUID = crypto.randomUUID() as any;
 
     let validChars = "";
     if (this.includeLetters) {
@@ -54,15 +60,28 @@ export class AppComponent {
       validChars += symbols;
     }
 
-    if (this.includeDash) {
-      validChars += dash;
+    if (this.includeRandomUUID) {
+      this.randomUUID = randomUUID;
     }
-
     let generatedPassword = "";
     for (let i = 0; i < this.length; i++) {
       const index = Math.floor(Math.random() * validChars.length);
       generatedPassword += validChars[index];
     }
     this.password = generatedPassword;
+
+    if (this.randomUUID) {
+      this.password = this.randomUUID;
+      this.randomUUID = "";
+    }
+  }
+
+  onCopy(userinput): void {
+    console.log(userinput);
+    // navigator["clipboard"]
+    //   .writeText(content)
+    //   .then()
+    //   .catch((e) => console.error(e));
+    // this.currentValue = this.password;
   }
 }
