@@ -1,11 +1,13 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Clipboard } from "@angular/cdk/clipboard";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   length = 0;
   includeLetters = false;
   includeNumbers = false;
@@ -14,7 +16,14 @@ export class AppComponent {
   password = "";
   randomUUID: string;
   currentValue: any;
-  constructor() {}
+  copyForm: any;
+  constructor(private clipboard: Clipboard) {
+    // this.copyForm = new FormGroup({
+    //   copyValue: new FormControl("", [Validators.required]),
+    // });
+  }
+
+  ngOnInit(): void {}
   onChangeLength(value: string) {
     const parsedValue = parseInt(value);
 
@@ -36,7 +45,7 @@ export class AppComponent {
   }
 
   onChangeAddRandomUUID() {
-    this.password = "";
+    // this.password = "";
     this.includeRandomUUID = !this.includeRandomUUID;
     // this.includeSymbols = !this.includeSymbols;
     // this.includeNumbers = !this.includeNumbers;
@@ -47,8 +56,8 @@ export class AppComponent {
     const numbers = "1234567890";
     const letters = "abcdefghijklmnopqrstuvwyz";
     const symbols = "!@#$%^&*()";
-    const randomUUID = crypto.randomUUID() as any;
-
+    const randomUUID = crypto.randomUUID();
+    console.log(randomUUID);
     let validChars = "";
     if (this.includeLetters) {
       validChars += letters;
@@ -71,16 +80,13 @@ export class AppComponent {
     this.password = generatedPassword;
 
     if (this.randomUUID) {
+      console.log("working");
       this.password = this.randomUUID;
       this.randomUUID = "";
     }
   }
 
   onCopy(): void {
-    // navigator["clipboard"]
-    //   .writeText(content)
-    //   .then()
-    //   .catch((e) => console.error(e));
-    // this.currentValue = this.password;
+    this.clipboard.copy(this.password);
   }
 }
